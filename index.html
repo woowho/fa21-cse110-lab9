@@ -2,107 +2,186 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lab 9</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab 9</title>
 
-  <style>
-    button {
-      margin: 3px;
-    }
+    <style>
+        button {
+            margin: 3px;
+        }
 
-    button:hover {
-      cursor: pointer;
-    }
+        button:hover {
+            cursor: pointer;
+        }
 
-    #first-num,
-    #second-num {
-      width: 60px;
-    }
+        #first-num,
+        #second-num {
+            width: 60px;
+        }
 
-    output {
-      border: 1px solid gray;
-      display: block;
-      height: 18px;
-      margin-top: 5px;
-      padding: 5px;
-      width: 240px;
-    }
+        output {
+            border: 1px solid gray;
+            display: block;
+            height: 18px;
+            margin-top: 5px;
+            padding: 5px;
+            width: 240px;
+        }
 
-    main {
-      width: 800px;
-    }
+        main {
+            width: 800px;
+        }
 
-    #error-btns {
-      column-gap: 5px;
-      display: flex;
-      flex-wrap: wrap;
-      margin-top: 30px;
-      row-gap: 5px;
-    }
+        #error-btns {
+            column-gap: 5px;
+            display: flex;
+            flex-wrap: wrap;
+            margin-top: 30px;
+            row-gap: 5px;
+        }
 
-    #error-btns>* {
-      padding: 8px 2px;
-      width: 122px;
-    }
-  </style>
+        #error-btns>* {
+            padding: 8px 2px;
+            width: 122px;
+        }
+    </style>
 </head>
 
 <body>
-  <main>
-    <form>
-      <fieldset>
-        <legend>Error Calculator</legend>
-        <input name="first-num" id="first-num" />
-        <select name="operator" id="operator">
-          <option>+</option>
-          <option>-</option>
-          <option>*</option>
-          <option>/</option>
-        </select>
-        <input name="second-num" id="second-num" />
-        <button id="calculate">Calculate</button>
-        <br />
-        <output></output>
-      </fieldset>
-    </form>
+    <main>
+        <form>
+            <fieldset>
+                <legend>Error Calculator</legend>
+                <input name="first-num" id="first-num" />
+                <select name="operator" id="operator">
+                    <option>+</option>
+                    <option>-</option>
+                    <option>*</option>
+                    <option>/</option>
+                </select>
+                <input name="second-num" id="second-num" />
+                <button id="calculate">Calculate</button>
+                <br />
+                <output></output>
+            </fieldset>
+        </form>
 
-    <section id="error-btns">
-      <button>Console Log</button>
-      <button>Console Error</button>
-      <button>Console Count</button>
-      <button>Console Warn</button>
-      <button>Console Assert</button>
-      <button>Console Clear</button>
-      <button>Console Dir</button>
-      <button>Console dirxml</button>
-      <button>Console Group Start</button>
-      <button>Console Group End</button>
-      <button>Console Table</button>
-      <button>Start Timer</button>
-      <button>End Timer</button>
-      <button>Console Trace</button>
-      <button>Trigger a Global Error</button>
-    </section>
-  </main>
+        <section id="error-btns">
+            <button>Console Log</button>
+            <button>Console Error</button>
+            <button>Console Count</button>
+            <button>Console Warn</button>
+            <button>Console Assert</button>
+            <button>Console Clear</button>
+            <button>Console Dir</button>
+            <button>Console dirxml</button>
+            <button>Console Group Start</button>
+            <button>Console Group End</button>
+            <button>Console Table</button>
+            <button>Start Timer</button>
+            <button>End Timer</button>
+            <button>Console Trace</button>
+            <button>Trigger a Global Error</button>
+        </section>
+    </main>
 
-  <script>
-    let form = document.querySelector('form');
-    form.addEventListener('submit', e => {
-      e.preventDefault();
-      let output = document.querySelector('output');
-      let firstNum = document.querySelector('#first-num').value;
-      let secondNum = document.querySelector('#second-num').value;
-      let operator = document.querySelector('#operator').value;
-      output.innerHTML = eval(`${firstNum} ${operator} ${secondNum}`);
-    });
+    <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
+    <script>
+        window.TrackJS && TrackJS.install({
+            token: "5b83cd9afc1b4be59936e35b5ad96503"
+            // for more configuration options, see https://docs.trackjs.com
+        });
 
-    let errorBtns = Array.from(document.querySelectorAll('#error-btns > button'));
+        class HarroError extends TypeError {
+            constructor(message) {
+                super(message);
+                this.name = "HARRO DARKNESS MY OLD FRIEND";
+            }
+        }
 
+        window.addEventListener('error', (event)=>{
+            TrackJS.track('Error with message' + event.message);
+        })
+
+
+
+        let form = document.querySelector('form');
+        form.addEventListener('submit', e => {
+            e.preventDefault();
+            let output = document.querySelector('output');
+            let firstNum = document.querySelector('#first-num').value;
+            let secondNum = document.querySelector('#second-num').value;
+            let operator = document.querySelector('#operator').value;
+            output.innerHTML = eval(`${firstNum} ${operator} ${secondNum}`);
+        });
+
+        try {
+            let errorBtns = Array.from(document.querySelectorAll('#error-btns > button'));
+
+            errorBtns[0].addEventListener('click', (event) => {
+                console.log('HARRO');
+            });
+            errorBtns[1].addEventListener('click', (event) => {
+                console.error('HARRO');
+            });
+            errorBtns[2].addEventListener('click', (event) => {
+                console.count('HARRO');
+            });
+            errorBtns[3].addEventListener('click', (event) => {
+                console.warn('HARRO');
+            });
+            errorBtns[4].addEventListener('click', (event) => {
+                console.assert(2 % 2 !== 0);
+            });
+            errorBtns[5].addEventListener('click', (event) => {
+                console.clear();
+            });
+            errorBtns[6].addEventListener('click', (event) => {
+                console.dir({
+                    harro: 'harro',
+                });
+            });
+            errorBtns[7].addEventListener('click', (event) => {
+                console.dirxml({
+                    harro: 'harro',
+                });
+            });
+            errorBtns[8].addEventListener('click', (event) => {
+                console.group();
+            });
+            errorBtns[9].addEventListener('click', (event) => {
+                console.groupEnd();
+            });
+            errorBtns[10].addEventListener('click', (event) => {
+                console.table(["apples", "oranges", "bananas"]);
+            });
+            errorBtns[11].addEventListener('click', (event) => {
+                console.time();
+            });
+            errorBtns[12].addEventListener('click', (event) => {
+                console.timeEnd();
+            });
+            errorBtns[13].addEventListener('click', (event) => {
+                console.trace();
+            });
+            errorBtns[14].addEventListener('click', (event) => {
+                throw 'HARRO';
+            });
+            errorBtns[15].addEventListener('click', (event) => {
+                throw 'HARRO';
+            });
+
+        } catch (e) {
+            console.warn(e);
+            throw (new HarroError(e.message));
+        } finally {
+            window.alert('HARRO DARKNESS MY OLD FRIEND');
+        }
     // Start your code here
     // You may move this JS to another file if you wish
-  </script>
+    </script>
 </body>
 
 </html>
