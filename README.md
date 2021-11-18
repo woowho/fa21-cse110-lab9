@@ -4,4 +4,4 @@ No partner
 
 Image is at 
 
-![Image]('Screen Shot 2021-11-17 at 17.19.09.png')
+![Image](/Screen%20Shot%202021-11-17%20at%2017.19.09.png)
